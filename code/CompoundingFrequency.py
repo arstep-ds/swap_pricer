@@ -1,9 +1,13 @@
-def annually():
+def annual():
     return 1
-def semi_annually():
+def semiannual():
     return 2
+def every_fourth_month():
+    return 3
 def quarterly():
     return 4
+def bimonthly():
+    return 6
 def monthly():
     return 12
 def daily():
