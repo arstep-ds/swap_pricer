@@ -1,0 +1,10 @@
+def annually():
+    return 1
+def semi_annually():
+    return 2
+def quarterly():
+    return 4
+def monthly():
+    return 12
+def daily():
+    return 365
