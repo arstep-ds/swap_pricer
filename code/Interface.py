@@ -5,7 +5,8 @@ import PresentValue as pv
 import pandas as pd
 import numpy as np
 import Interpolation as interp
-
+import CIR
+import matplotlib.pyplot as plt
 
 ir.comp_to_cont(0.08, cfr.semiannual())
 
@@ -26,3 +27,18 @@ x_interp = np.array([73/365, 272/365, 348/365])
 
 cubic_spline = interp.cubic_spline(interp_values=x_interp, x_coord=x_data, y_coord=y_data)
 linear = interp.piecwise_linear(interp_values=x_interp, x_coord=x_data, y_coord=y_data)
+
+numSimulations = 1000
+numSteps = 360
+startVal = 0.01 # assuming initial interest rate to be 1% (yearly)
+timeDelta = 1/12
+alpha = 0.75
+b = 0.02
+sigma = 0.5
+# each row is one scenario
+simulationPaths = np.zeros((numSimulations, numSteps), dtype='float64')
+for s in range(numSimulations):
+    simulationPaths[s,:] = CIR.simulatePathCIR(startVal, numSteps,alpha=alpha, b=b, sigma=sigma, timeDelta=timeDelta)
+
+for i in range(len(simulationPaths)-996):
+    plt.plot(simulationPaths[i,:])
